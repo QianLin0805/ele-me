@@ -1,0 +1,56 @@
+@media (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5){
+    $dpi: 1.5 !global;
+}
+@media (-webkit-min-device-pixel-ratio: 2), (min-device-pixel-ratio: 2){
+    $dpi: 2 !global;
+}
+
+@mixin borderScale($direction,$rate){
+    @if $direction == left {
+        left: 0; top: 0;
+        height: 100%;
+        transform: scaleX($rate);
+    }@else if $direction == right {
+        right: 0; top: 0;
+        height: 100%;
+        transform: scaleX($rate);
+    }@else if $direction == top {
+        left: 0; top: 0;
+        width: 100%;
+        transform: scaleY($rate);
+    }@else if $direction == bottom {
+        left: 0; bottom: 0;
+        width: 100%;
+        transform: scaleY($rate);
+    }
+}
+@mixin border-1px($color, $direction: bottom){
+    position: relative;    
+    &:after{
+        display: block; position: absolute; content: '';
+        border-#{$direction}: 1px solid $color;
+        @if $dpi == 1.5 {
+            @include borderScale($direction,0.7);
+        }@else if $dpi == 2{
+            @include borderScale($direction,0.5);
+        }
+    }
+}
+@mixin schemeBg{
+    &.decrease{background-image: url(./images/decrease_w.png);}
+    &.discount{background-image: url(./images/discount_w.png);}
+    &.guarantee{background-image: url(./images/guarantee_w.png);}
+    &.invoice{background-image: url(./images/invoice_w.png);}
+    &.special{background-image: url(./images/special_w.png);}
+}
+@mixin iconBg{
+    &.decrease{background-image: url(./images/decrease_c.png);}
+    &.discount{background-image: url(./images/discount_c.png);}
+    &.guarantee{background-image: url(./images/guarantee_c.png);}
+    &.invoice{background-image: url(./images/invoice_c.png);}
+    &.special{background-image: url(./images/special_c.png);}
+}
+
+@mixin nowrap(){
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
