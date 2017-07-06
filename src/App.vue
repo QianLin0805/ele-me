@@ -11,24 +11,24 @@
     </div>
     <transition :name="slideName">
         <keep-alive>
-            <router-view @add="add" @getShopcar="getShopcar" :seller="seller" :fromPath="fromPath"></router-view>
+            <router-view @add="add" :seller="seller" :fromPath="fromPath"></router-view>
         </keep-alive>
     </transition>
-    <v-account ref="shopcar" :shopcar="shopcar" :seller="seller"></v-account>
+    <v-account ref="shopcar" :seller="seller"></v-account>
 </div>
 </template>
 
 <script>
-import header from 'components/Header'
-import account from 'components/Account'
+import header from '@/components/Header'
+import account from '@/components/Account'
 import Velocity from 'velocity-animate'
+import {mapActions, mapGetters} from 'vuex'
 
 export default {
     data(){
         return {
             seller : '',
             slideName : '',
-            shopcar : [],
             routes : [
                 {
                     pathName : 'goods',
@@ -74,11 +74,8 @@ export default {
         }
     },
     methods: {
-        getShopcar(arr){
-            this.shopcar = arr;
-        },
         add(el){
-            this.$refs.shopcar.move(el);
+            this.$refs.shopcar.move(el)    //调用子组件方法
         },
         getIndex(str){
             let i;

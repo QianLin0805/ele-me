@@ -3,7 +3,7 @@
     <div class="menu" ref="menu">
         <div class="scroller">
             <ul>
-                <li v-for="(menu,index) in goods" @click="slideMenu(index)" :class="{'active':menuIndex === index}" >
+                <li v-for="(menu,index) in goods" @click="slideMenu(index)" :class="{'active':menuIndex === index}">
                     <p><i class="icon" :class="classMap[menu.type]" v-if="menu.type > 0"></i>{{menu.name}}</p>
                 </li>
             </ul>
@@ -15,27 +15,27 @@
                 <h2>{{food.name}}</h2>
                 <ul>
                     <li v-for="(item,index) in food.foods" @click="skip(item)">
-                        <img :src="item.image" alt="" />
+                        <img :src="item.image" alt="">
                         <div class="info">
                             <h3>{{item.name}}</h3>
                             <p v-if="item.description" class="desc">{{item.description}}</p>
                             <p class="sellInfo">月售{{item.sellCount}}份<span>好评率{{item.rating}}%</span></p>
                             <p class="price"><span>￥<b>{{item.price}}</b></span><del v-if="item.oldPrice">￥<b>{{item.oldPrice}}</b></del></p>
                         </div>
-                        <v-btngroup @add="add" :food="item" :shopcar="shopcar"></v-btngroup>
+                        <v-btngroup @add="add" :food="item"></v-btngroup>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
-    <v-detail v-if="selectedFood" @hideDetail="hideDetail" :flag="showDetail" :food="selectedFood" :shopcar="shopcar"></v-detail>
+    <v-detail v-if="selectedFood" @hideDetail="hideDetail" :flag="showDetail" :food="selectedFood"></v-detail>
 </div>
 </template>
 
 <script>
-import btngroup from 'components/Btngroup'
-import detail from 'components/Detail'
-import {newScroll} from '../common/js/common.js'
+import btngroup from '@/components/Btngroup'
+import detail from '@/components/Detail'
+import {newScroll} from 'common/js/common.js'
 
 export default {
     data(){
@@ -87,15 +87,6 @@ export default {
                 }
             }
             return index;
-        },
-        shopcar(){
-            let foods = [];
-            this.goods.forEach((good) => {
-                good.foods.forEach((food) => {
-                    if(food.buyCount > 0) foods.push(food);
-                });
-            });
-            return foods;
         }
     },
     watch: {
@@ -104,9 +95,6 @@ export default {
                 let menu = this.$refs.menu.getElementsByTagName('li')[this.menuIndex];
                 this.menuScroll.scrollToElement(menu,300);
             }
-        },
-        shopcar(val, oldVal){
-            this.$emit('getShopcar',this.shopcar);
         }
     },
     methods: {

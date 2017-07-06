@@ -41,9 +41,9 @@
 </template>
 
 <script>
-import star from "components/Star"
-import tabs from "components/SlideTabs"
-import {formatDate,initClassify,resetRatings,newScroll} from '../common/js/common.js'
+import star from "@/components/Star"
+import tabs from "@/components/SlideTabs"
+import {formatDate,initClassify,resetRatings,newScroll} from 'common/js/common.js'
 
 export default {
     data(){

@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import star from "components/Star"
+import star from "@/components/Star"
 import Bscroll from 'better-scroll'
 
 export default {

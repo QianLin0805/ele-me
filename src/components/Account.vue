@@ -12,7 +12,7 @@
                         <li v-for="item in shopcar">
                             <p class="name">{{item.name}}</p>
                             <p class="price">￥<span>{{item.price}}</span></p>
-                            <v-btngroup :food="item" :shopcar="shopcar"></v-btngroup>
+                            <v-btngroup :food="item"></v-btngroup>
                         </li>
                     </ul>
                 </div>
@@ -40,9 +40,11 @@
 
 <script>
 import Vue from 'vue'
-import btngroup from 'components/Btngroup'
+import store from 'store'
+import btngroup from '@/components/Btngroup'
 import Velocity from 'velocity-animate'
-import {newScroll} from '../common/js/common.js'
+import {newScroll} from 'common/js/common.js'
+const SHOPCAR = store.getters.shopcar;          //购物车
 
 export default {
     data(){
@@ -51,20 +53,15 @@ export default {
             scroll : '',
             targetEl : '',
             balls : false
-            // [
-            //     {show : false},
-            //     {show : false},
-            //     {show : false},
-            //     {show : false},
-            //     {show : false}
-            // ]
         }
     },
     props: {
-        shopcar : Array,
         seller : [String, Object]
     },
     computed: {
+        shopcar(){
+            return this.$store.getters.shopcar;
+        },
         amount(){
             let amount = 0;
             this.shopcar.forEach((food) => {
@@ -100,35 +97,25 @@ export default {
             this.fold = true;
         },
         empty(){
-            this.shopcar.forEach((food) => {
-                food.buyCount = 0;
-            });
+            this.$store.commit('empty');
         },
         pay(){
             alert('请支付' + (this.amount + this.seller.deliveryPrice) + '元');
         },
         move(el){
             this.targetEl = el;
-            //this.balls = true;
-            // for(let i=0; i<this.balls.length; i++){
-            //     let ball = this.balls[i];
-            // }
+            
         },
         beforeDrop(el){
             let rect = this.targetEl.getBoundingClientRect();
             let x = rect.left, y = -rect.top;
-            //el.style.transform = 'translateX('+ x +'px) translateY('+ y +'px)';
-            //console.log(this.balls)
-            //this.$nextTick(() => {
-                //el.style.transform = '';
-            //});
+            
         },
         drop(el,done){
-            //Velocity(el, {translateX:0}, {duration : 3000});
-            //el.style.left = 0
+            
         },
         afterDrop(el){
-            //this.balls = false;
+            
         }
     },
     components: {

@@ -40,8 +40,8 @@
 </template>
 
 <script>
-import star from 'components/Star'
-import {newScroll} from '../common/js/common.js'
+import star from '@/components/Star'
+import {newScroll} from 'common/js/common.js'
 
 export default {
     data(){

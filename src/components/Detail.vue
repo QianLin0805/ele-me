@@ -13,7 +13,7 @@
                         <transition name="fade">
                             <p @click="add" v-show="food.buyCount <= 0">加入购物车</p>
                         </transition>
-                        <v-btngroup :food="food" :shopcar="shopcar"></v-btngroup>
+                        <v-btngroup :food="food"></v-btngroup>
                     </div>
                 </div>
             </div>
@@ -39,9 +39,9 @@
 </template>
 
 <script>
-import btngroup from 'components/Btngroup'
-import slideTabs from 'components/SlideTabs'
-import {formatDate,initClassify,resetRatings,newScroll} from '../common/js/common.js'
+import btngroup from '@/components/Btngroup'
+import slideTabs from '@/components/SlideTabs'
+import {formatDate,initClassify,resetRatings,newScroll} from 'common/js/common.js'
 
 export default {
     data(){
@@ -60,8 +60,7 @@ export default {
     },
     props: {
         flag : Boolean,
-        food : Object,
-        shopcar : Array
+        food : Object
     },
     filters: {
         formatDate : function(val){

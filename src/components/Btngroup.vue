@@ -12,24 +12,25 @@
 
 <script>
 import Vue from 'vue'
+import store from 'store'
+
 export default {
     mounted(){
         if(!this.food.buyCount) Vue.set(this.food,'buyCount',0);
     },
     props: {
-        food : Object,
-        shopcar : Array
+        food : Object
     },
     methods: {
         add(e){
             if(event._constructed){
-                this.food.buyCount++;
                 this.$emit('add',e.target);
+                this.$store.commit('add',this.food);
             }
         },
         minus(event){
             if(event._constructed){
-                this.food.buyCount--;
+                this.$store.commit('minus',this.food);
             }
         }
     }
