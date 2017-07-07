@@ -40,11 +40,10 @@
 
 <script>
 import Vue from 'vue'
-import store from 'store'
 import btngroup from '@/components/Btngroup'
 import Velocity from 'velocity-animate'
 import {newScroll} from 'common/js/common.js'
-const SHOPCAR = store.getters.shopcar;          //购物车
+import {mapGetters} from 'vuex'
 
 export default {
     data(){
@@ -58,18 +57,10 @@ export default {
     props: {
         seller : [String, Object]
     },
-    computed: {
-        shopcar(){
-            return this.$store.getters.shopcar;
-        },
-        amount(){
-            let amount = 0;
-            this.shopcar.forEach((food) => {
-                amount += food.buyCount * food.price;
-            });
-            return amount;
-        }
-    },
+    computed: mapGetters([
+        'shopcar',
+        'amount'
+    ]),
     watch: {
         shopcar(val, oldVal){
             if(!this.scroll){
